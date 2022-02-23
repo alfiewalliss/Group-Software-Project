@@ -15,7 +15,7 @@ def homePage(request):
     return render(request,'locationgameapp/homePage.html')
 
 def Game(request):
-    return render(request,'locationgameapp/Game.html')
+    return render(request,'locationgameapp/game.html')
 
 def Settings(request):
     return render(request, 'locationgameapp/Settings.html')
