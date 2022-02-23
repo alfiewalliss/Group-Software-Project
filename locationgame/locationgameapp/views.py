@@ -7,3 +7,6 @@ def index(request):
 
 def signUp(request):
     return render(request, 'locationgameapp/signUp.html')
+
+def login(request):
+    return render(request, 'locationgameapp/login.html')
