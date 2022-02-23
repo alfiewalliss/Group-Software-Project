@@ -10,3 +10,16 @@ def signUp(request):
 
 def login(request):
     return render(request, 'locationgameapp/login.html')
+
+def homePage(request):
+    return render(request,'locationgameapp/homePage.html')
+
+def Game(request):
+    return render(request,'locationgameapp/Game.html')
+
+def Settings(request):
+    return render(request, 'locationgameapp/Settings.html')
+
+def Leaderboards(request):
+    return render(request, 'locationgameapp/Leaderboards.html')
+
