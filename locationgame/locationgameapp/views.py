@@ -18,7 +18,7 @@ def Game(request):
     return render(request,'locationgameapp/game.html')
 
 def Settings(request):
-    return render(request, 'locationgameapp/Settings.html')
+    return render(request, 'locationgameapp/settings.html')
 
 def Leaderboards(request):
     return render(request, 'locationgameapp/Leaderboards.html')
