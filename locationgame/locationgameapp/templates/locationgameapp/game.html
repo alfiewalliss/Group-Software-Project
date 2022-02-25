@@ -48,8 +48,9 @@
         function showPosition(position) {
           //gets the width of the display to foward to the link
           var width = (window.innerWidth>0) ? window.innerWidth : screen.width;
-          //gets the image form the google api
-          document.getElementById("position").src="https://maps.googleapis.com/maps/api/staticmap?center="+position.coords.latitude+"," +position.coords.longitude+ "&zoom=14&size="+width+"x"+width+"&key=AIzaSyBOFUQ46YJmdQk7JMdDIYeJFv9YaY_UDQY"
+          var latlong = position.coords.latitude+"," +position.coords.longitude
+          //gets the image form the google api more info on that here: https://developers.google.com/maps/documentation/maps-static/start
+          document.getElementById("position").src="https://maps.googleapis.com/maps/api/staticmap?center="+latlong+ "&zoom=14&size="+width+"x"+width+"&"+"markers=color:blue|"+latlong+"&key=AIzaSyBOFUQ46YJmdQk7JMdDIYeJFv9YaY_UDQY"
         }
         
         function showError(error) {
