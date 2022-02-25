@@ -1,10 +1,27 @@
 <html>
     <head>
+        <script>
+            var x = document.getElementById("game");
+            function getPlayerLocation(){
+                if(navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                }else{
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+            }
+
+            function showPosition(position){
+                x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+            }
+
+        </script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     </head>
     <body class="text-center">
         <br>
         <h1>The Snail Game 🐌</h1>
+
 
         <div class="bg-image" 
             style="background-image: url('https://tinyimg.io/i/NoJEPKY.png');
@@ -18,7 +35,49 @@
             </div>
         </div>
 
-        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
+    <script>
+        var x = document.getElementById("position");
+        
+        function getPlayerLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+          } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+          }
+        }
+        
+        function showPosition(position) {
+          //gets the width of the display to foward to the link
+          var width = (window.innerWidth>0) ? window.innerWidth : screen.width;
+          var latlong = position.coords.latitude+"," +position.coords.longitude
+          //gets the image form the google api more info on that here: https://developers.google.com/maps/documentation/maps-static/start
+          document.getElementById("position").src="https://maps.googleapis.com/maps/api/staticmap?center="+latlong+ "&zoom=14&size="+width+"x"+width+"&"+"markers=color:blue|"+latlong+"&key=AIzaSyBOFUQ46YJmdQk7JMdDIYeJFv9YaY_UDQY"
+        }
+        
+        function showError(error) {
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              x.innerHTML = "User denied the request for Geolocation."
+              break;
+            case error.POSITION_UNAVAILABLE:
+              x.innerHTML = "Location information is unavailable."
+              break;
+            case error.TIMEOUT:
+              x.innerHTML = "The request to get user location timed out."
+              break;
+            case error.UNKNOWN_ERROR:
+              x.innerHTML = "An unknown error occurred."
+              break;
+          }
+        }
+        //calls the get location every 2000milliseconds (2 seconds)
+        function callPosition(){
+            getPlayerLocation();
+            setTimeout(callPosition, 2000);
+        }
+
+        callPosition();
+        </script>
 </html>
