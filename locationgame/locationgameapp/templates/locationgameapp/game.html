@@ -22,15 +22,12 @@
         <br>
         <h1>The Snail Game 🐌</h1>
 
-        <div class="bg-image" 
-            style="background-image: url('https://tinyimg.io/i/NoJEPKY.png');
-            height: 80vh;
-            background-size: cover">
-
+        <div>
             <div class="position-relative">
                 <div class="p-3 position-absolute top-0 start-0">
                     <a class="btn btn-primary" style="background-color: #FFE66D; color: #1A535C;" href="#" role="button">Menu</a>
-                    <p id="position"></p>
+                    <!--Displays the map image on screen-->
+                    <img id="position" style="position: ;"></img>
                 </div>
             </div>
         </div>
@@ -49,8 +46,10 @@
         }
         
         function showPosition(position) {
-          x.innerHTML = "Latitude: " + position.coords.latitude + 
-          "<br>Longitude: " + position.coords.longitude;
+          //gets the width of the display to foward to the link
+          var width = (window.innerWidth>0) ? window.innerWidth : screen.width;
+          //gets the image form the google api
+          document.getElementById("position").src="https://maps.googleapis.com/maps/api/staticmap?center="+position.coords.latitude+"," +position.coords.longitude+ "&zoom=14&size="+width+"x"+width+"&key=AIzaSyBOFUQ46YJmdQk7JMdDIYeJFv9YaY_UDQY"
         }
         
         function showError(error) {
