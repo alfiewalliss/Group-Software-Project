@@ -5,20 +5,46 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin=""/>
-
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
-
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-      </head>
-    <body class="text-center">
-        <br>
-        <h1>The Snail Game 🐌</h1>
+    </head>
+    <body>
+        <!--Navigation Bar-->
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+            <a class="navbar-brand">🐌</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+              <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div id="map" style="height: 75vh;">
-          <script>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Leaderboard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Settings">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">How To Play</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        
+        <div class="text-center">
+            <br>
+            <h1>The Snail Game 🐌</h1>
+            <div id="map" style="height: 82vh;">
+            <script>
             
           function getPlayerLocation() {
             if (navigator.geolocation) {
@@ -55,12 +81,6 @@
         
           callPosition();
           </script>
-
-            <div class="position-relative">
-                <div class="p-3 position-absolute top-0 start-0" style="position: absolute;">
-                    <a class="btn btn-primary" style="background-color: #FFE66D; color: #1A535C;" href="#" role="button">Menu</a>
-                </div>
-            </div>
           </div>
           <p id="output"></p>
  
