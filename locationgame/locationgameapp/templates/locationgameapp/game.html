@@ -5,85 +5,171 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin=""/>
+
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    </head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      </head>
+
     <body>
         <!--Navigation Bar-->
         <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-            <a class="navbar-brand"> 🐌</a>
+            <a class="navbar-brand">🐌</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
               <span class="navbar-toggler-icon"></span>
             </button>
-
+          
             <div class="collapse navbar-collapse" id="navbarMenu">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Leaderboard</a>
+                  <a class="nav-link" href="#leaderboardModal" data-bs-toggle="modal" data-target="#leaderboardModal">Leaderboard</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Profile</a>
+                  <a class="nav-link" href="#profileModal" data-bs-toggle="modal" data-target="#profileModal">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Settings">Settings</a>
+                    <a class="nav-link" href="#settingsModal" data-bs-toggle="modal" data-target="#settingsModal">Settings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">How To Play</a>
+                    <a class="nav-link" href="#howToPlayModal" data-bs-toggle="modal" data-target="#howToPlayModal">How To Play</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                    <a class="nav-link" href="/login">Logout</a>
                 </li>
               </ul>
             </div>
           </nav>
         
+
+        <!--Leaderboard Modal-->
+        <div class="modal fade" id="leaderboardModal">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content"> 
+                <div class="modal-header">
+                    <h3 class="col-12 modal-title text-center">Leaderboard</h3> 
+                </div>
+                <div class="modal-body text-center">
+                </div>
+            </div>
+          </div>
+        </div> 
+
+
+        <!--Profile Modal-->
+        <div class="modal fade" id="profileModal">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content"> 
+                <div class="modal-header">
+                    <h3 class="col-12 modal-title text-center">Profile</h3> 
+                </div>
+                <div class="modal-body text-center">
+                </div>
+            </div>
+          </div>
+        </div> 
+
+
+        <!--Settings Modal-->
+        <div class="modal fade" id="settingsModal">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content"> 
+                <div class="modal-header">
+                    <h3 class="col-12 modal-title text-center">Settings</h3> 
+                </div>
+                <div class="modal-body text-center">
+                  <button class="w-50 btn btn-lg btn-primary">Difficulty</button>
+                  <br>
+                  <br>
+                  <button class="w-50 btn btn-lg btn-primary">Policies</button>
+                  <br>
+                  <br>
+                  <button class="w-50 btn btn-lg btn-danger">Report Player</button>
+                  <br>
+                  <br>
+                  <br>
+                  <div class="modal-header">
+                    <h3 class="col-12 modal-title text-center">Admin Options</h3>
+                  </div>
+                  <br>
+                  <button class="w-50 btn btn-lg btn-primary">Add Tasks</button>
+                  <br>
+                  <br>
+                  <button class="w-50 btn btn-lg btn-primary">Alter Difficulty</button>
+                  <br>
+                  <br>
+                  <button class="w-50 btn btn-lg btn-primary">Link To Github</button>
+                  <br>
+                  <br>
+                  <button class="w-50 btn btn-lg btn-danger">Adjust Banned Accounts</button>
+                </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--How To Play Modal-->
+        <div class="modal fade" id="howToPlayModal">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content"> 
+                <div class="modal-header">
+                    <h3 class="col-12 modal-title text-center">How To Play</h3> 
+                </div>
+                <div class="modal-body text-center">
+                </div>
+            </div>
+          </div>
+        </div>  
+
+
         <div class="text-center">
             <br>
             <h1>The Snail Game 🐌</h1>
-            <div id="map" style="height: 82vh;">
+            <br>
+            <div id="map" style="height: 75vh;">
+
+            <!--Map Functionality-->
             <script>
-            
-          function getPlayerLocation() {
-            if (navigator.geolocation) {
-              const coords = [];
-              navigator.geolocation.getCurrentPosition(function(position) {
-                const coords = [position.coords.latitude, position.coords.longitude]
-                var playerLocation = L.marker([coords[0],coords[1]]).addTo(map);
-              });
-            } else { 
-              alert("Geolocation is not supported by this browser.");
+            function getPlayerLocation() {
+                if (navigator.geolocation) {
+                const coords = [];
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const coords = [position.coords.latitude, position.coords.longitude]
+                    var playerLocation = L.marker([coords[0],coords[1]]).addTo(map);
+                });
+                } else { 
+                alert("Geolocation is not supported by this browser.");
+                }
             }
-          }
 
 
-          //correct location
-          //var map = L.map('map').setView([50.736391, -3.533999], 16);
-          var map = L.map('map').setView([50.728800, -3.510509], 16);
+            //correct location
+            //var map = L.map('map').setView([50.736391, -3.533999], 16);
+            var map = L.map('map').setView([50.728800, -3.510509], 16);
 
-          L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-          //minZoom: 15,
-          id: 'mapbox/streets-v11',
-          tileSize: 512,
-          zoomOffset: -1,
-          accessToken: 'pk.eyJ1IjoiY3c4NjMiLCJhIjoiY2wwM3JvNTdrMGFtaTNlcGRidG05MzUwOSJ9.WHpNIG8lsRUY9FptsF6jFw'
-          }).addTo(map);
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            //minZoom: 15,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiY3c4NjMiLCJhIjoiY2wwM3JvNTdrMGFtaTNlcGRidG05MzUwOSJ9.WHpNIG8lsRUY9FptsF6jFw'
+            }).addTo(map);
 
-          
-          //calls the get location every 2000milliseconds (2 seconds)
-          function callPosition(){
-          getPlayerLocation();
-          setTimeout(callPosition, 2000);
-          }
-        
-          callPosition();
-          </script>
-          </div>
-          <p id="output"></p>
- 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+            
+            //calls the get location every 2000milliseconds (2 seconds)
+            function callPosition(){
+            getPlayerLocation();
+            setTimeout(callPosition, 2000);
+            }
+            
+            callPosition();
+            </script>
+            </div>
+            <p id="output"></p>
+    
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        </div>
     </body>
 </html>
