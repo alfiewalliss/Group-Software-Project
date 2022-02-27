@@ -9,13 +9,6 @@ def index(request):
 def signUp(request):
     return render(request, 'locationgameapp/signUp.html')
 
-#def login(request):
-    #return render(request, 'locationgameapp/login.html')
-
-@login_required
-def homePage(request):
-    return render(request,'locationgameapp/homePage.html')
-
 @login_required
 def Game(request):
     return render(request,'locationgameapp/game.html')
