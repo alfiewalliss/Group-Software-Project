@@ -1,17 +1,20 @@
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.template import loader
-from django.shortcuts import get_object_or_404, render
-from . import views
+from django.shortcuts import render
+from .models import task
+
+import json 
+
 def index(request):
     return render(request, 'locationgameapp/index.html')
 
 def signUp(request):
     return render(request, 'locationgameapp/signUp.html')
 
-@login_required
 def Game(request):
-    return render(request,'locationgameapp/game.html')
+    taskList = list(task.objects.order_by('taskName').values()) 
+    taskJson = json.dumps(taskList)  
+    context = {'tasks': taskJson} 
+    return render(request, 'locationgameapp/game.html', context) 
 
 @login_required
 def Settings(request):
