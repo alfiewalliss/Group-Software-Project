@@ -131,29 +131,40 @@
 
             <!--Map Functionality-->
             <script>
-            function getPlayerLocation() {
-                if (navigator.geolocation) {
 
-                navigator.geolocation.getCurrentPosition(function(position) {
+            //calls the get location every 2000milliseconds (2 seconds)
+            function callPosition(){
+              getPlayerLocation();
+              setTimeout(callPosition, 2000);
+            }
+
+            function getPlayerLocation() {
+
+                //Player Location
+                if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(function(position) {
+
+                    //Players current coordinates
                     const coords = [position.coords.latitude, position.coords.longitude]
 
+                    //Remove previous player location marker
                     if (playerLocation){
                       map.removelayer(playerLocation);
                     }
+                    //Player location marker creation
                     playerLocation = L.marker([coords[0],coords[1]]).addTo(map);
-
                 });
+                }   
 
-                } 
-                
+                //Player location not supported             
                 else { 
-                alert("Geolocation is not supported by this browser.");
+                  alert("Geolocation is not supported by this browser.");
                 }
             }
 
-            //correct location
-            //var map = L.map('map').setView([50.736391, -3.533999], 16);
-            var map = L.map('map').setView([50.728800, -3.510509], 16);
+            //Centers map on Exeter University
+            var map = L.map('map').setView([50.736391, -3.533999], 16);
+            //var map = L.map('map').setView([50.728800, -3.510509], 16);
             var playerLocation;
 
             //Map implementation
@@ -166,31 +177,29 @@
             accessToken: 'pk.eyJ1IjoiY3c4NjMiLCJhIjoiY2wwM3JvNTdrMGFtaTNlcGRidG05MzUwOSJ9.WHpNIG8lsRUY9FptsF6jFw'
             }).addTo(map);
 
-            //Adding tasks from database
+
+            //Adding tasks from the tasks json file
             let taskLocations = JSON.parse("{{ tasks|escapejs }}");
             //Cycle through the tasks
             for (let taskLocation of taskLocations) { 
+
+                //Set coordinates and description of an individual task
                 let coordinates = [taskLocation.longitude, taskLocation.latitude]; 
                 let description = [taskLocation.description];
 
-                //Add mask to the map
+                //Add task to the map
                 var marker = L.marker([coordinates[0],coordinates[1]]).addTo(map);
                 map.addLayer(marker);
 
                 //Set popup description
                 marker.bindPopup(description[0]);
             }
-
-            //calls the get location every 2000milliseconds (2 seconds)
-            function callPosition(){
-            getPlayerLocation();
-            setTimeout(callPosition, 2000);
-            }
             
+            //Update player location
             callPosition();
+
             </script>
             </div>
-            <p id="output"></p>
     
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         </div>
