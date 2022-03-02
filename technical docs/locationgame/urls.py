@@ -18,6 +18,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from users import views as user_views
 
+#Assigning URLs to templates and directions
 urlpatterns = [
     path('', include('locationgameapp.urls')),
     path('admin/', admin.site.urls),

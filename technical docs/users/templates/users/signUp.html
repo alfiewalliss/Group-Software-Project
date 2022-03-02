@@ -49,6 +49,7 @@
                         {% csrf_token %}
                         {{ form|crispy }}
 
+                        <!-- TODO create write Terms and Conditions -->
                         <input type="checkbox" name="checkbox" value="check" id="tnc" onclick="enableSubmit(this)"/> I have read and agree to the <a href="#" target="_blank">Terms and Conditions and Privacy Policy</a>
                         <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit" value="submit" id="button" disabled>Sign Up</button>
 
