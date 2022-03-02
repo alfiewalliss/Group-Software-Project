@@ -11,7 +11,5 @@ urlpatterns = [
 
     path('Game/', views.Game, name='Game'),
 
-    path('Settings/', views.Settings, name='Settings'),
-
     path('Leaderboards', views.Leaderboards, name='Leaderboards')
     ]

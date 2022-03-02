@@ -29,11 +29,6 @@ def Game(request):
     return render(request, 'locationgameapp/game.html', context)
 
 @login_required
-def Settings(request):
-    '''Rendering of the Settings page'''
-    return render(request, 'locationgameapp/settings.html')
-
-@login_required
 def Leaderboards(request):
     '''Rendering of the Leaderboards page'''
     return render(request, 'locationgameapp/Leaderboards.html')
