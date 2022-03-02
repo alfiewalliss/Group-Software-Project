@@ -27,7 +27,11 @@ trello link: [https://trello.com/b/fSaYeZM8/group-software-engineering]
 
 We have also taken regular snapshots of the kanban board in trello to archive our progress. These are held in the repository below.
 
-/process docs/kanban Snapshots.pdf
+/process docs/kanban-snapshots/kanban Snapshots.pdf
+
+Within process documents we have also included the meeting notes, agenda and minutes. These will be found in the repository below.
+
+./process documents/meeting-notes/
 
 ## TECHNICAL DOCUMENTS
 Our technical documents are primarily managed on the github system. The link to the project is below:
@@ -35,5 +39,10 @@ Our technical documents are primarily managed on the github system. The link to 
 github link: [https://github.com/alfiewalliss/Group-Software-Project]
 
 ## PRODUCT DOCUMENTS
-Our product documents are primarily in the form of a product UI. This is located at /product docs/UI Document.jpeg
+Our product documents are primarily in the form of a product UI. To run the program enter the technical docs directory and run the command:
+
+python manage.py runserver
+
+The UI and design documents for the client will be found in the repository below. 
+/product docs/designs/ UI Document.jpeg
 
