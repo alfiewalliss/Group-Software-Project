@@ -17,13 +17,6 @@ def Game(request):
     return render(request, 'locationgameapp/game.html', context) 
 
 @login_required
-<<<<<<< HEAD
-=======
-def Settings(request):
-    return render(request, 'locationgameapp/settings.html')
-
-@login_required
->>>>>>> parent of fcb8a67 (Start of linting + Commenting)
 def Leaderboards(request):
     return render(request, 'locationgameapp/Leaderboards.html')
 

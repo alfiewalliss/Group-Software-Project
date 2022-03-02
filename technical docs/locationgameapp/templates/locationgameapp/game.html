@@ -133,7 +133,6 @@
 
             <!--Map Functionality-->
             <script>
-<<<<<<< HEAD
 
             //Gets the player location
             function callPosition(){
@@ -170,31 +169,6 @@
 
             //Centers map on Exeter University
             var map = L.map('map').setView([50.736391, -3.533999], 16);
-=======
-            function getPlayerLocation() {
-                if (navigator.geolocation) {
-
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    const coords = [position.coords.latitude, position.coords.longitude]
-
-                    if (playerLocation){
-                      map.removeLayer(playerLocation);
-                    }
-                    playerLocation = L.marker([coords[0],coords[1]]).addTo(map);
-
-                });
-
-                } 
-                
-                else { 
-                alert("Geolocation is not supported by this browser.");
-                }
-            }
-
-            //correct location
-            //var map = L.map('map').setView([50.736391, -3.533999], 16);
-            var map = L.map('map').setView([50.728800, -3.510509], 16);
->>>>>>> parent of fcb8a67 (Start of linting + Commenting)
             var playerLocation;
 
             //Map implementation
@@ -232,13 +206,8 @@
             callPosition();
             </script>
             </div>
-<<<<<<< HEAD
             
             <!-- Bootstrap js -->
-=======
-            <p id="output"></p>
-    
->>>>>>> parent of fcb8a67 (Start of linting + Commenting)
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         </div>
     </body>
