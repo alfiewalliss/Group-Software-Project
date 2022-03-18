@@ -183,7 +183,7 @@
                     latDist = Math.sqrt((playerCoords[0] - snailCoords[0])**2);
                     longDist = Math.sqrt((playerCoords[1] - snailCoords[1])**2);
                     //temporary snail found
-                    if (latDist < 0.00001 && longDist < 0.00001){
+                    if (latDist < 0.0001 && longDist < 0.0001){
                       alert("Found")
                     }
 
@@ -207,7 +207,20 @@
                   } else {
                     //Snail location marker creation
                     if (playerLocation){
-                      snailCoords = [playerCoords[0]+distance,playerCoords[1]+distance];
+                      //getting a random angle
+                      angle = Math.random()*100;
+                      angle = angle * Math.PI / 180;
+                      if (Math.random() < 0.5){
+                        distance1 = distance * Math.cos(angle)
+                      } else {
+                        distance1 = -(distance * Math.cos(angle))
+                      }
+                      if (Math.random() < 0.5){
+                        distance2 = distance * Math.sin(angle)
+                      } else {
+                        distance2 = -(distance * Math.sin(angle))
+                      }
+                      snailCoords = [playerCoords[0]+distance1,playerCoords[1]+distance2];
                       snailLocation = L.marker([snailCoords[0],snailCoords[1]],{icon: snailIcon}).addTo(map);
                       snailLocation.bindPopup("Snail");
                     }
@@ -227,7 +240,7 @@
               var snailLocation;
               var snailCoords;
               //How far away from the player the snail will spawn
-              var distance = 0.005;
+              var distance = 0.008;
               //How fast the snail will move (smaller is faster)
               var speed = 0.0002;
               
