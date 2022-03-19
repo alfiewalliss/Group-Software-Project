@@ -1,5 +1,7 @@
 '''Database models '''
 
+from distutils.command.upload import upload
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -17,3 +19,10 @@ class task(models.Model):
     description = models.TextField()
     longitude = models.FloatField()
     latitude = models.FloatField()
+
+class profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profilePictures')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
