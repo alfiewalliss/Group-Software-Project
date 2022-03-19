@@ -46,6 +46,13 @@
               </ul>
             </div>
           </nav>
+          {% if messages %}
+            {% for message in messages%}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message}}
+                  </div>
+              {% endfor %}
+          {% endif%}
 
       
         <!--Leaderboard Modal-->
@@ -157,9 +164,9 @@
                       <form method="POST"> {% csrf_token %}
                         <input class="form-control form-group" name="Name" id="NameAdd" placeholder="Please enter location name">
                         <br>
-                        <input class="form-control form-group" name="Longitude" id="LongitudeAdd" placeholder="Longitude (Autofill when location selected on map)">
+                        <input class="form-control form-group" name="Longitude" id="LongitudeAdd" placeholder="Longitude (Autofill when location selected on map)" readonly="readonly">
                         <br>
-                        <input class="form-control form-group" name="Latitude" id="LatitudeAdd" placeholder="Latitude (Autofill when location selected on map)">
+                        <input class="form-control form-group" name="Latitude" id="LatitudeAdd" placeholder="Latitude (Autofill when location selected on map)" readonly="readonly">
                         <br>
                         <input type="submit" class="btn btn-primary">
                       </form>
@@ -167,16 +174,14 @@
                     <br>
                     <br>
                     <div id="Remove Form">
+                      <h2>Remove Location</h2>
+                      <br>
                       <form method="POST">{% csrf_token %}
-                        <h2>Remove Location</h2>
-                        <br>
-                        <div class="form-group">
-                          <input class="form-control" id="LocationName" placeholder="Location Name (Autofill when location selected)" disabled>
-                        </div>
+                        <input class="form-control form-group" name="LocationName" id="LocationName" placeholder="Location Name (Autofill when location selected)" readonly="readonly">
                         <br>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <br>
                       </form>
+                      <br>
                     </div>
                   </div>
               </div>
@@ -215,11 +220,11 @@
   
                   //Add mask to the map
                   var marker = L.marker([coordinates[0],coordinates[1]]).addTo(map);
-                  marker.on('click', addLoc)
                   map.addLayer(marker);
   
                   //Set popup description
                   marker.bindPopup(description[0]);
+                  var popup = marker.getPopup
                   marker.properties = {} 
                   marker.properties.name= description[0]
               }
@@ -230,19 +235,32 @@
                 if (theMarker != undefined){
                   map.removeLayer(theMarker);
                 }
-                theMarker = new L.marker(e.latlng).addTo(map);
+                theMarker = new L.marker(e.latlng).addTo(map).on('click', removeMarker);
                 theMarker._icon.classList.add("huechange");
                 document.getElementById("LatitudeAdd").setAttribute("value", e.latlng.lat);
                 document.getElementById("LongitudeAdd").setAttribute("value", e.latlng.lng);
               }
 
+              //Remove the data from delete form
+              function closePop(e) {
+                document.getElementById("LocationName").setAttribute("value", "");
+              }
+
+              //Removes the marker placed down by the user
+              function removeMarker(e){
+                map.removeLayer(theMarker)
+                document.getElementById("LatitudeAdd").setAttribute("value", "");
+                document.getElementById("LongitudeAdd").setAttribute("value", "");
+              }
+
               //Remove marker to html form
               function removeLoc(e) {
-                attributes = e.layer.properties
-                alert(attributes.description)
+                document.getElementById("LocationName").setAttribute("value", e.popup.getContent())
               }
 
               map.on('click', addLoc);
+              map.on('popupopen', removeLoc)
+              map.on('popupclose', closePop)
               </script>
             </div>
             
