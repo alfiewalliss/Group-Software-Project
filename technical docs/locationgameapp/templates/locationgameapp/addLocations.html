@@ -77,10 +77,20 @@
                     <h3 class="col-12 modal-title text-center">Profile</h3> 
                 </div>
                 <div class="modal-body text-center">
+                  <div class="content-section">
+                    <div class="media">
+                      <img class="rounded-circle account-img" style = "height: 200px; width: 200px;" src="{{ user.profile.image.url }}">
+                      <div class="media-body">
+                        <h2 class="account-heading">{{ user.username }}</h2>
+                        <p class="text-secondary">{{ user.email }}</p>
+                      </div>
+                    </div>
+                    <a class="w-26 btn btn-lg btn-primary" href="/UpdateProfile/">Update Profile</a>
+                  </div>
                 </div>
             </div>
           </div>
-        </div> 
+        </div>  
 
 
         <!--Settings Modal-->

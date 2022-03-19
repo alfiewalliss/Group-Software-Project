@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from .models import task
 from django.contrib import messages
-from .forms import UserCreationForm, profileUpdateForm, userUpdateForm
+from .forms import profileUpdateForm, userUpdateForm
 
 import json 
 
@@ -56,6 +57,11 @@ def UpdateProfile(request):
     if request.method == 'POST':
         uform = userUpdateForm(request.POST, instance=request.user)
         pform = profileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if uform.is_valid() and pform.is_valid():
+            uform.save()
+            pform.save()
+            return redirect('locationgameapp:UpdateProfile/')
     else:
         uform = userUpdateForm(instance=request.user)
         pform = profileUpdateForm(instance=request.user.profile)
