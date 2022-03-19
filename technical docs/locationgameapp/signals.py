@@ -10,4 +10,4 @@ def createProfile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def saveProfile(sender, instance, **kwargs):
-    instance.profile.save()
+    instance.user.profile.save()
