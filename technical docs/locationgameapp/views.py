@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import task
+from .forms import UserCreationForm, profileUpdateForm, userUpdateForm
 
 import json 
 
@@ -36,6 +37,21 @@ def AddLocations(request):
     taskJson = json.dumps(taskList)  
     context = {'tasks': taskJson} 
     return render(request, 'locationgameapp/addLocations.html', context) 
+
+@login_required
+def UpdateProfile(request):
+    if request.method == 'POST':
+        uform = userUpdateForm(request.POST, instance=request.user)
+        pform = profileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+    else:
+        uform = userUpdateForm(instance=request.user)
+        pform = profileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'uform' : uform,
+        'pform' : pform
+    }
+    return render(request, 'locationgameapp/UpdateProfile.html', context)
 
     
 
