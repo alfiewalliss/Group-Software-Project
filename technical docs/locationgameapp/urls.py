@@ -13,7 +13,7 @@ urlpatterns = [
 
     path('AddLocations/', views.AddLocations, name='AddLocations'),
 
-    path('UpdateProfile', views.UpdateProfile,name= 'UpdateProfile'),
+    path('UpdateProfile/', views.UpdateProfile,name= 'UpdateProfile'),
 
     path('Leaderboards', views.Leaderboards, name='Leaderboards')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
