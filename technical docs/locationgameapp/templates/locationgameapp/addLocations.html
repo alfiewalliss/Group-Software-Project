@@ -152,29 +152,22 @@
                   </div>
                   <div class ="col-md-6 col-sm-6">
                     <div id="Add Form">
-                      <from>
-                        <h2>Add Location</h2>
+                      <h2>Add Location</h2>
+                      <br>
+                      <form method="POST"> {% csrf_token %}
+                        <input class="form-control form-group" name="Name" id="NameAdd" placeholder="Please enter location name">
                         <br>
-                        <div class="form-group">
-                          <input class="form-control" id="Location Name" placeholder="Location Name">
-                        </div>
+                        <input class="form-control form-group" name="Longitude" id="LongitudeAdd" placeholder="Longitude (Autofill when location selected on map)">
                         <br>
-                        <div class="form-group">
-                          <input class="form-control" id="LongatudeAdd" placeholder="Longatude (Autofill when location selected)" disabled>
-                        </div>
+                        <input class="form-control form-group" name="Latitude" id="LatitudeAdd" placeholder="Latitude (Autofill when location selected on map)">
                         <br>
-
-                        <div class="form-group">
-                          <input class="form-control" id="LatitudeAdd" placeholder="Latitude (Autofill when location selected)" disabled>
-                        </div>
-                        <br>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        </from>
+                        <input type="submit" class="btn btn-primary">
+                      </form>
                     </div>
                     <br>
                     <br>
                     <div id="Remove Form">
-                      <from>
+                      <form method="POST">{% csrf_token %}
                         <h2>Remove Location</h2>
                         <br>
                         <div class="form-group">
@@ -183,7 +176,7 @@
                         <br>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <br>
-                      </from>
+                      </form>
                     </div>
                   </div>
               </div>
@@ -217,7 +210,7 @@
               //Cycle through the tasks
               var counter = 0
               for (let taskLocation of taskLocations) { 
-                  let coordinates = [taskLocation.longitude, taskLocation.latitude]; 
+                  let coordinates = [taskLocation.latitude, taskLocation.longitude]; 
                   let description = [taskLocation.description];
   
                   //Add mask to the map
@@ -240,8 +233,7 @@
                 theMarker = new L.marker(e.latlng).addTo(map);
                 theMarker._icon.classList.add("huechange");
                 document.getElementById("LatitudeAdd").setAttribute("value", e.latlng.lat);
-                document.getElementById("LongatudeAdd").setAttribute("value", e.latlng.lng)
-                document.getElementById("LocationName").setAttribute("value", e.label._content)
+                document.getElementById("LongitudeAdd").setAttribute("value", e.latlng.lng);
               }
 
               //Remove marker to html form
