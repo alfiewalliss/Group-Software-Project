@@ -207,15 +207,23 @@
                       playerLocation._icon.classList.add("huechange");
                       //console.log("updated player")
                     });
+                    //first draft scoring system, needs to be updated.
                     if (playerLocation){
                       for (let i = 0; i < taskLocations.length; i++) {
                         //console.log(taskLocations[i]);
                         latDist = Math.sqrt((playerCoords[0] - taskLocations[i][0])**2);
                         longDist = Math.sqrt((playerCoords[1] - taskLocations[i][1])**2);
                         //temporary snail found
-                        if (latDist < 0.0005 && longDist < 0.0005){
+                        if (latDist < 0.0005 && longDist < 0.0005 && !visteted.includes(taskLocations[i])){
                           //alert("Found")
-                          score += 5;
+                          if (speed == 0.0002){
+                            score += 5;
+                          } else if (speed == 0.00009){
+                            score += 2;
+                          } else {
+                            score += 1;
+                          }
+                          visteted.push(taskLocations[i])
                         }
                       }
                     }
@@ -305,6 +313,7 @@
                 var snailCoords;
                 var score;
                 var taskLocations = [];
+                var visteted = [];
                 //Centers map on Exeter University
                 var map = L.map('map').setView([50.736391, -3.533999], 16);;
                 //How far away from the player the snail will spawn
