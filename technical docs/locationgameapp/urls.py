@@ -13,8 +13,6 @@ urlpatterns = [
 
     path('AddLocations/', views.AddLocations, name='AddLocations'),
 
-    path('UpdateProfile/', views.UpdateProfile,name= 'UpdateProfile'),
-
     path('AddAdmin/', views.AddAdmin, name='AddAdmin'),
 
     path('Leaderboards', views.Leaderboards, name='Leaderboards')
