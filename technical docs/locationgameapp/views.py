@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import task
+from .models import task, pleaderboard
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
@@ -17,10 +17,32 @@ def signUp(request):
 
 @login_required
 def Game(request):
-    taskList = list(task.objects.order_by('taskName').values()) 
-    taskJson = json.dumps(taskList)  
-    context = {'tasks': taskJson} 
-    return render(request, 'locationgameapp/game.html', context) 
+    taskList = list(task.objects.order_by('taskName').values())
+    taskJson = json.dumps(taskList)
+    top = pleaderboard.objects.all().order_by('-score')[:10]
+    context = {'tasks': taskJson,
+               'top_easy': top}
+
+    if request.method == 'POST':
+        if request.POST.get('SubmitScore'):
+            try:
+                plb = pleaderboard.objects.get(profile=request.user.profile)
+                if plb != None:
+                    old_score = plb.score
+                    print(old_score)
+                    new_score = request.POST.get('SubmitScore')
+                    print(new_score)
+                    if int(old_score) < int(new_score):
+                        plb.score = new_score
+                        plb.save()
+            except:
+                lb_obj = pleaderboard(
+                    profile=request.user.profile,
+                    score=request.POST.get('SubmitScore')
+                )
+                lb_obj.save()
+
+    return render(request, 'locationgameapp/game.html', context)
 
 @login_required
 def Leaderboards(request):
