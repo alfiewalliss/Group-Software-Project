@@ -46,7 +46,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/Game">Game</a>
-            </li>
+              </li>
               <li class="nav-item">
                   <a class="nav-link" href="/logout">Logout</a>
               </li>
@@ -104,7 +104,7 @@
                     <h3 class="col-12 modal-title text-center">Settings</h3> 
                 </div>
                 <div class="modal-body text-center">
-                  <button class="w-50 btn btn-lg btn-primary">Difficulty</button>
+                  <button class="w-50 btn btn-lg btn-primary" href="#difficultyModal" data-bs-toggle="modal" data-target="#difficultyModal">Difficulty</button>
                   <br>
                   <br>
                   <br>
@@ -153,6 +153,28 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="game()">Play</button>
+                </div>
+            </div>
+          </div>
+        </div> 
+
+        <!--Difficulty Modal-->
+        <div class="modal fade" id="difficultyModal">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content"> 
+                <div class="modal-header">
+                    <h3 class="col-12 modal-title text-center">Difficulty</h3> 
+                </div>
+                <div class="modal-body text-center">
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="easy()">Easy</button>
+                  <br>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="normal()">Normal</button>
+                  <br>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="hard()">Hard</button>
+                  <br>
+                  <br>
                 </div>
             </div>
           </div>
@@ -288,14 +310,14 @@
                 //How far away from the player the snail will spawn
                 var distance = 0.008;
                 //How fast the snail will move (smaller is faster)
-                var speed = 0.0002;
+                var speed = 0.00009;
                 
                 //getting the icon for the snail as an image from the internet and formatting its size
                 var snailIcon = L.icon({
                   iconUrl: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/apple/114/snail_1f40c.png',
                   iconSize: [40, 40]
                 });
-                
+
                 function game(){
                   if (gameover){
                     $("#gameModal").modal('hide')
@@ -336,26 +358,37 @@
                       //Set popup description
                       marker.bindPopup(description[0]);
                   }
-      
-                  //Gets the player location
-                  function callPosition(){
-                    if (!gameover){
-                      //updating the player location, to track the player moving
-                      getPlayerLocation();
-                      //updating the snail location to get closer to the player
-                      updateSnailLocation();
-                      //calls the get location every 2000milliseconds (2 seconds)
-                      setTimeout(callPosition, 2000);
-                      //console.log("updated both")
-                    } else {
-                      return
-                    }
-                  }
                   callPosition();
+                }
+                //Gets the player location
+                function callPosition(){
+                  if (!gameover){
+                    //updating the player location, to track the player moving
+                    getPlayerLocation();
+                    //updating the snail location to get closer to the player
+                    updateSnailLocation();
+                    //calls the get location every 2000milliseconds (2 seconds)
+                    setTimeout(callPosition, 2000);
+                    //console.log("updated both")
+                  } else {
+                    return
+                  }
                 }
                 if (!gameover) {
                   game();
                   //$("#gameModal").modal('show')
+                }
+                function easy(){
+                  $("#difficultyModal").modal('hide')
+                  speed = 0.00005;
+                }
+                function normal(){
+                  $("#difficultyModal").modal('hide')
+                  speed = 0.00009;
+                }
+                function hard(){
+                  $("#difficultyModal").modal('hide')
+                  speed = 0.0002;
                 }
                 </script>
               </div>
