@@ -15,6 +15,8 @@ urlpatterns = [
 
     path('UpdateProfile/', views.UpdateProfile,name= 'UpdateProfile'),
 
+    path('AddAdmin/', views.AddAdmin, name='AddAdmin'),
+
     path('Leaderboards', views.Leaderboards, name='Leaderboards')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

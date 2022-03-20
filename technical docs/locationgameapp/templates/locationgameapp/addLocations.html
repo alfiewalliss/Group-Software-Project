@@ -21,31 +21,38 @@
     <body>
         <!--Navigation Bar-->
         <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-            <a class="navbar-brand">🐌</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          
-            <div class="collapse navbar-collapse" id="navbarMenu">
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="#leaderboardModal" data-bs-toggle="modal" data-target="#leaderboardModal">Leaderboard</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#profileModal" data-bs-toggle="modal" data-target="#profileModal">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#settingsModal" data-bs-toggle="modal" data-target="#settingsModal">Settings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#tcModal" data-bs-toggle="modal" data-target="#tcModel">How To Play</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
+          <a class="navbar-brand">🐌</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#leaderboardModal" data-bs-toggle="modal" data-target="#leaderboardModal">Leaderboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#profileModal" data-bs-toggle="modal" data-target="#profileModal">Profile</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#settingsModal" data-bs-toggle="modal" data-target="#settingsModal">Settings</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#howToPlayModal" data-bs-toggle="modal" data-target="#howToPlayModal">How To Play</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Game">Game</a>
+            </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+          <div class="nav-text" style="float:right; margin-right: 3%; font-weight: 400; color: white;">
+            {{user.username}}
+        </div>
+        </nav>
+
           {% if messages %}
             {% for message in messages%}
               <div class="alert alert-{{ message.tags }}">
@@ -104,12 +111,6 @@
                   <button class="w-50 btn btn-lg btn-primary">Difficulty</button>
                   <br>
                   <br>
-                  <button class="w-50 btn btn-lg btn-primary">Policies</button>
-                  <br>
-                  <br>
-                  <button class="w-50 btn btn-lg btn-danger">Report Player</button>
-                  <br>
-                  <br>
                   <br>
                   {% if user.is_superuser or user.is_staff %}
                   <div class="modal-header">
@@ -119,29 +120,16 @@
                   <a class="w-50 btn btn-lg btn-primary" href="/AddLocations">Edit Tasks</a>
                   <br>
                   <br>
-                  <button class="w-50 btn btn-lg btn-primary">Link To Github</button>
+                  <a class="w-50 btn btn-lg btn-primary" href="https://github.com/alfiewalliss/Group-Software-Project" target="_blank">Link To Github</a>
                   <br>
                   <br>
-                  <button class="w-50 btn btn-lg btn-danger">Adjust Banned Accounts</button>
+                  <a class="w-50 btn btn-lg btn-primary" href="/AddAdmin">Adjust Game Master Accounts</a>
                   {% endif %}
                 </div>
             </div>
           </div>
         </div>
-        
-        <!--T&C Modal-->
-        <div class="modal fade" id="tcModal">
-          <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content"> 
-                <div class="modal-header">
-                    <h3 class="col-12 modal-title text-center">Terms and Conditions</h3> 
-                </div>
-                <div class="modal-body text-center">
 
-                </div>
-            </div>
-          </div>
-      </div>
         <!--How To Play Modal-->
         <div class="modal fade" id="howToPlayModal">
           <div class="modal-dialog modal-dialog-centered modal-lg">

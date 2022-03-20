@@ -3,6 +3,8 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from .models import task
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from .forms import profileUpdateForm, userUpdateForm
 
 import json 
@@ -25,9 +27,22 @@ def Leaderboards(request):
     return render(request, 'locationgameapp/Leaderboards.html')
 
 @login_required
+def AddAdmin(request):
+    if request.method == 'POST':
+        if request.POST.get('AddSuperuser'):
+            user1 = User.objects.get(username=request.POST.get('AddSuperuser'))
+            user1.is_superuser = not user1.is_superuser
+            user1.is_staff = not user1.is_staff
+            user1.save()
+        else:
+            messages.warning(request, f'Error incorect format for user permissions')
+    userList = User.objects.values()
+    userDict = {'User': userList}
+    return render(request, 'locationgameapp/addAdmin.html', userDict)
+
+@login_required
 def AddLocations(request):
     if request.method == 'POST':
-        print(request.POST.get('LocationName'))
         if request.POST.get('Name') and request.POST.get('Longitude') and request.POST.get('Latitude'):
             name = request.POST.get('Name')
             try:
