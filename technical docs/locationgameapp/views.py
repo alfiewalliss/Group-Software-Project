@@ -76,10 +76,13 @@ def UpdateProfile(request):
         if uform.is_valid() and pform.is_valid():
             uform.save()
             pform.save()
-            return redirect('locationgameapp:UpdateProfile/')
+            return redirect(reverse('UpdateProfile'))
     else:
         uform = userUpdateForm(instance=request.user)
-        pform = profileUpdateForm(instance=request.user.profile)
+        try:
+            pform = profileUpdateForm(instance=request.user.profile)
+        except:
+            pform = {}
 
     context = {
         'uform' : uform,

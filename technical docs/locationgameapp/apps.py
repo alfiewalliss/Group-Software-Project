@@ -7,4 +7,4 @@ class LocationgameappConfig(AppConfig):
 
 class usersConfig(AppConfig):
     def ready(self):
-        import users.signals
+        import locationgameapp.signals
