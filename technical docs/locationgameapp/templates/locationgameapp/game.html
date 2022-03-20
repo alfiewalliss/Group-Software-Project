@@ -1,6 +1,53 @@
 <html>
     <style>
     img.huechange { filter: hue-rotate(120deg); }
+
+    .lb_board{
+        position: relative;
+        top: 10px;
+        background: #1E58E1;
+        width: 300px;
+        height: 100px;
+        width: 100%;
+        height 100%;
+        border-radius: 5px;
+    }
+
+    .lb_board .lb_easy {
+        padding: 25px;
+    }
+
+    .lb_board .lb_player{
+        align-items: center;
+        display: flex;
+        padding 15px 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .lb_board .lb_player .player_image{
+        width: 80px;
+    }
+
+    .lb_board .lb_player img{
+        width: 100%;
+    }
+
+    .lb_board .lb_player .player_score{
+        width: 100px;
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    .lb_board .lb_player .player_name{
+        margin: 20px;
+        width: calc(100% - 180px);
+    }
+
+    .lb_board .lb_player .player_name p{
+        color: #ffffff;
+        font-weight: 600;
+    }
     </style>
     <head>
         <!-- Bootstrap css-->
@@ -46,7 +93,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/Game">Game</a>
-            </li>
+              </li>
               <li class="nav-item">
                   <a class="nav-link" href="/logout">Logout</a>
               </li>
@@ -66,6 +113,27 @@
                     <h3 class="col-12 modal-title text-center">Leaderboard</h3> 
                 </div>
                 <div class="modal-body text-center">
+                    <div class="lb_board">
+                        <div class="lb_easy" style="display: block;">
+                            {%for player in top_easy%}
+                            <div class="lb_player">
+                                <div class="player_image">
+                                    <img class="rounded-circle account-img" src="{{player.profile.image.url}}">
+                                </div>
+                                <div class="player_name">
+                                    <p>
+                                        {{player.profile.user.username}}
+                                    </p>
+                                </div>
+                                <div class="player_score">
+                                    <p style="color:#ffffff;">
+                                        {{player.score}}
+                                    </p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
           </div>
@@ -104,7 +172,7 @@
                     <h3 class="col-12 modal-title text-center">Settings</h3> 
                 </div>
                 <div class="modal-body text-center">
-                  <button class="w-50 btn btn-lg btn-primary">Difficulty</button>
+                  <button class="w-50 btn btn-lg btn-primary" href="#difficultyModal" data-bs-toggle="modal" data-target="#difficultyModal">Difficulty</button>
                   <br>
                   <br>
                   <br>
@@ -158,6 +226,28 @@
           </div>
         </div> 
 
+        <!--Difficulty Modal-->
+        <div class="modal fade" id="difficultyModal">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content"> 
+                <div class="modal-header">
+                    <h3 class="col-12 modal-title text-center">Difficulty</h3> 
+                </div>
+                <div class="modal-body text-center">
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="easy()">Easy</button>
+                  <br>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="normal()">Normal</button>
+                  <br>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="hard()">Hard</button>
+                  <br>
+                  <br>
+                </div>
+            </div>
+          </div>
+        </div> 
+
         <div class="text-center">
             <br>
             <h1>The Snail Game 🐌</h1>
@@ -185,15 +275,23 @@
                       playerLocation._icon.classList.add("huechange");
                       //console.log("updated player")
                     });
+                    //first draft scoring system, needs to be updated.
                     if (playerLocation){
                       for (let i = 0; i < taskLocations.length; i++) {
                         //console.log(taskLocations[i]);
                         latDist = Math.sqrt((playerCoords[0] - taskLocations[i][0])**2);
                         longDist = Math.sqrt((playerCoords[1] - taskLocations[i][1])**2);
                         //temporary snail found
-                        if (latDist < 0.0005 && longDist < 0.0005){
+                        if (latDist < 0.0005 && longDist < 0.0005 && !visteted.includes(taskLocations[i])){
                           //alert("Found")
-                          score += 5;
+                          if (speed == 0.0002){
+                            score += 5;
+                          } else if (speed == 0.00009){
+                            score += 2;
+                          } else {
+                            score += 1;
+                          }
+                          visteted.push(taskLocations[i])
                         }
                       }
                     }
@@ -270,6 +368,8 @@
                   //ends the game for the user, called when the snail reaches the player
                   gameover = true;
                   console.log(score);
+                  document.getElementById("SubmitScore").value = score;
+                  document.forms['SubmitScoreForm'].submit()
                   document.getElementById("score1").innerHTML = score;
                   $("#gameModal").modal('show')
                   //play agian
@@ -283,19 +383,20 @@
                 var snailCoords;
                 var score;
                 var taskLocations = [];
+                var visteted = [];
                 //Centers map on Exeter University
                 var map = L.map('map').setView([50.736391, -3.533999], 16);;
                 //How far away from the player the snail will spawn
                 var distance = 0.008;
                 //How fast the snail will move (smaller is faster)
-                var speed = 0.0002;
+                var speed = 0.00009;
                 
                 //getting the icon for the snail as an image from the internet and formatting its size
                 var snailIcon = L.icon({
                   iconUrl: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/apple/114/snail_1f40c.png',
                   iconSize: [40, 40]
                 });
-                
+
                 function game(){
                   if (gameover){
                     $("#gameModal").modal('hide')
@@ -336,30 +437,44 @@
                       //Set popup description
                       marker.bindPopup(description[0]);
                   }
-      
-                  //Gets the player location
-                  function callPosition(){
-                    if (!gameover){
-                      //updating the player location, to track the player moving
-                      getPlayerLocation();
-                      //updating the snail location to get closer to the player
-                      updateSnailLocation();
-                      //calls the get location every 2000milliseconds (2 seconds)
-                      setTimeout(callPosition, 2000);
-                      //console.log("updated both")
-                    } else {
-                      return
-                    }
-                  }
                   callPosition();
+                }
+                //Gets the player location
+                function callPosition(){
+                  if (!gameover){
+                    //updating the player location, to track the player moving
+                    getPlayerLocation();
+                    //updating the snail location to get closer to the player
+                    updateSnailLocation();
+                    //calls the get location every 2000milliseconds (2 seconds)
+                    setTimeout(callPosition, 2000);
+                    //console.log("updated both")
+                  } else {
+                    return
+                  }
                 }
                 if (!gameover) {
                   game();
                   //$("#gameModal").modal('show')
                 }
+                function easy(){
+                  $("#difficultyModal").modal('hide')
+                  speed = 0.00005;
+                }
+                function normal(){
+                  $("#difficultyModal").modal('hide')
+                  speed = 0.00009;
+                }
+                function hard(){
+                  $("#difficultyModal").modal('hide')
+                  speed = 0.0002;
+                }
                 </script>
               </div>
               
             </div>
+        <form method="POST" name="SubmitScoreForm" id="SubmitScoreForm"> {% csrf_token %}
+            <input class="form-submit-score"  name="SubmitScore" id="SubmitScore" hidden>
+        </form>
       </body>
 </html>

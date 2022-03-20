@@ -28,7 +28,7 @@ class profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    def save(self,*args, **kwargs):
+    def save(self):
         super().save()
 
         img = Image.open(self.image.path)
@@ -37,3 +37,10 @@ class profile(models.Model):
             outputSize = (300,300)
             img.thumbnail(outputSize)
             img.save(self.image.path)
+
+class pleaderboard(models.Model):
+    profile = models.OneToOneField(profile, on_delete=models.CASCADE)
+    score = models.IntegerField("score", default=0)
+
+    def __str__(self):
+        return f'{self.profile.user.username} score'
