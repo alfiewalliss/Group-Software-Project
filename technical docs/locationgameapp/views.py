@@ -45,10 +45,6 @@ def Game(request):
     return render(request, 'locationgameapp/game.html', context)
 
 @login_required
-def Leaderboards(request):
-    return render(request, 'locationgameapp/Leaderboards.html')
-
-@login_required
 def AddAdmin(request):
     if request.method == 'POST':
         if request.POST.get('AddSuperuser'):
