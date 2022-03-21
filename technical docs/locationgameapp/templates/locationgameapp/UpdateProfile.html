@@ -30,13 +30,16 @@
             <div class="collapse navbar-collapse" id="navbarMenu">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="#profileModal" data-bs-toggle="modal" data-target="#profileModal">Profile</a>
+                  <a class="nav-link" href="/UpdateProfile">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#settingsModal" data-bs-toggle="modal" data-target="#settingsModal">Settings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#tcModal" data-bs-toggle="modal" data-target="#tcModel">How To Play</a>
+                  <a class="nav-link" href="#howToPlayModal" data-bs-toggle="modal" data-target="#howToPlayModal">How To Play</a>
+              </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/Game">Game</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
@@ -44,22 +47,6 @@
               </ul>
             </div>
           </nav>
-
-
-
-        <!--Profile Modal-->
-        <div class="modal fade" id="profileModal">
-          <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content"> 
-                <div class="modal-header">
-                    <h3 class="col-12 modal-title text-center">Profile</h3> 
-                </div>
-                <div class="modal-body text-center">
-                </div>
-            </div>
-          </div>
-        </div> 
-
 
         <!--Settings Modal-->
         <div class="modal fade" id="settingsModal">
@@ -69,13 +56,7 @@
                     <h3 class="col-12 modal-title text-center">Settings</h3> 
                 </div>
                 <div class="modal-body text-center">
-                  <button class="w-50 btn btn-lg btn-primary">Difficulty</button>
-                  <br>
-                  <br>
-                  <button class="w-50 btn btn-lg btn-primary">Policies</button>
-                  <br>
-                  <br>
-                  <button class="w-50 btn btn-lg btn-danger">Report Player</button>
+                  <button class="w-50 btn btn-lg btn-primary" href="#difficultyModal" data-bs-toggle="modal" data-target="#difficultyModal">Difficulty</button>
                   <br>
                   <br>
                   <br>
@@ -87,29 +68,32 @@
                   <a class="w-50 btn btn-lg btn-primary" href="/AddLocations">Edit Tasks</a>
                   <br>
                   <br>
-                  <button class="w-50 btn btn-lg btn-primary">Link To Github</button>
+                  <a class="w-50 btn btn-lg btn-primary" href="https://github.com/alfiewalliss/Group-Software-Project" target="_blank">Link To Github</a>
                   <br>
                   <br>
-                  <button class="w-50 btn btn-lg btn-danger">Adjust Banned Accounts</button>
+                  <a class="w-50 btn btn-lg btn-primary" href="/AddAdmin">Adjust Game Master Accounts</a>
                   {% endif %}
                 </div>
             </div>
           </div>
         </div>
         
-        <!--T&C Modal-->
-        <div class="modal fade" id="tcModal">
+        <!--How To Play Modal-->
+        <div class="modal fade" id="howToPlayModal">
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content"> 
                 <div class="modal-header">
-                    <h3 class="col-12 modal-title text-center">Terms and Conditions</h3> 
+                    <h3 class="col-12 modal-title text-center">How To Play</h3> 
                 </div>
                 <div class="modal-body text-center">
-
+                  <p>The Snail Game is a test of both tactics and endurance, yet the aim of the game is relatively simple: complete as many tasks as possible and don't get caught by the snail!</p>
+                  <p>On the map, there are three types of icons: player icons (showing yours and other player's locations), task icons (showing the locations of your specific tasks) and the snail icon (showing the location of the snail). This game uses your real-life location so, to complete a task, you must head to one of the task locations shown on the map. </p>
+                  <p>If you're finding the game particularly easy/hard, you can change the difficulty by clicking on the 'Settings' tab in the task bar; but, know that the harder you set the difficulty, the more points you get for completing a task! So your challenge is to collect as many points as you can before being caught by the dreaded snail! Do you have what it takes to defeat him? 🐌</p>
                 </div>
             </div>
           </div>
-      </div>
+        </div>
+
 
 
         <div class="text-center">
