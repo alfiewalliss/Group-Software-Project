@@ -1,53 +1,6 @@
 <html>
     <style>
     img.huechange { filter: hue-rotate(120deg); }
-
-    .lb_board{
-        position: relative;
-        top: 10px;
-        background: #1E58E1;
-        width: 300px;
-        height: 100px;
-        width: 100%;
-        height: 100%;
-        border-radius: 5px;
-    }
-
-    .lb_board .lb_easy {
-        padding: 25px;
-    }
-
-    .lb_board .lb_player{
-        align-items: center;
-        display: flex;
-        padding: 15px;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-
-    .lb_board .lb_player .player_image{
-        width: 80px;
-    }
-
-    .lb_board .lb_player img{
-        width: 100%;
-    }
-
-    .lb_board .lb_player .player_score{
-        width: 100px;
-        color: #ffffff;
-        font-weight: 600;
-    }
-
-    .lb_board .lb_player .player_name{
-        margin: 20px;
-        width: calc(100% - 180px);
-    }
-
-    .lb_board .lb_player .player_name p{
-        color: #ffffff;
-        font-weight: 600;
-    }
     </style>
     <head>
         <!-- Bootstrap css-->
@@ -113,27 +66,22 @@
                     <h3 class="col-12 modal-title text-center">Leaderboard</h3> 
                 </div>
                 <div class="modal-body text-center">
-                    <div class="lb_board">
-                        <div class="lb_easy" style="display: block;">
-                            {%for player in top_easy%}
-                            <div class="lb_player">
-                                <div class="player_image">
-                                    <img class="rounded-circle account-img" src="{{player.profile.image.url}}">
-                                </div>
-                                <div class="player_name">
-                                    <p>
-                                        {{player.profile.user.username}}
-                                    </p>
-                                </div>
-                                <div class="player_score">
-                                    <p style="color:#ffffff;">
-                                        {{player.score}}
-                                    </p>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
+                    <table class="table" style="text-align: center; cursor: pointer;" id="tableID">
+                        <thead>
+                            <th scope="col">Profile</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Score</th>
+                        </thead>
+                    <tbody>
+                    {% for player in top_easy %}
+                    <tr>
+                        <td scope="row"><img class="rounded-circle account-img" width="50" height="50" src="{{player.profile.image.url}}"></td>
+                        <td scope="row">{{player.profile.user.username}}</td>
+                        <td scope="row">{{player.score}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
                 </div>
             </div>
           </div>
@@ -244,6 +192,11 @@
                   <br>
                   <br>
                   <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="hard()">Hard</button>
+                  <br>
+                  <br>
+                    {% if user.is_superuser or user.is_staff %}
+                        <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="rapid_debug()">Testing</button>
+                    {% endif %}
                   <br>
                   <br>
                 </div>
@@ -471,6 +424,11 @@
                 function hard(){
                   $("#difficultyModal").modal('hide')
                   speed = 0.0002;
+                }
+
+                function rapid_debug(){
+                  $("#difficultyModal").modal('hide')
+                  speed = 0.001;
                 }
                 </script>
               </div>
