@@ -20,8 +20,16 @@ def Game(request):
     taskList = list(task.objects.order_by('taskName').values())
     taskJson = json.dumps(taskList)
     top = pleaderboard.objects.all().order_by('-score')[:10]
-    context = {'tasks': taskJson,
-               'top_easy': top}
+    try:
+        context = {'tasks': taskJson,
+                    'top_easy': top,
+                    'score1': '-1',
+                    'score2': pleaderboard.objects.get(profile=request.user.profile).score}
+    except:
+        context = {'tasks': taskJson,
+                    'top_easy': top,
+                    'score1': '-1',
+                    'score2': '-1'}
 
     if request.method == 'POST':
         if request.POST.get('SubmitScore'):
@@ -41,7 +49,17 @@ def Game(request):
                     score=request.POST.get('SubmitScore')
                 )
                 lb_obj.save()
-
+            try:
+                context = {'tasks': taskJson,
+                           'top_easy': top,
+                           'score1': request.POST.get('SubmitScore'),
+                           'score2': pleaderboard.objects.get(profile=request.user.profile).score}
+            except:
+                context = {'tasks': taskJson,
+                           'top_easy': top,
+                           'score1': request.POST.get('SubmitScore'),
+                           'score2': '-1'}
+    
     return render(request, 'locationgameapp/game.html', context)
 
 @login_required

@@ -3,9 +3,6 @@
     img.huechange { filter: hue-rotate(120deg); }
     </style>
     <head>
-        <!-- Bootstrap css-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        
         <!-- Leaflet-->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -15,9 +12,12 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
 
+        <!-- JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <!-- Bootstrap js -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <!-- Bootstrap css-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       </head>
@@ -38,14 +38,16 @@
               <li class="nav-item">
                 <a class="nav-link" href="#profileModal" data-bs-toggle="modal" data-target="#profileModal">Profile</a>
               </li>
+              {% if user.is_superuser or user.is_staff %}
               <li class="nav-item">
                   <a class="nav-link" href="#settingsModal" data-bs-toggle="modal" data-target="#settingsModal">Settings</a>
               </li>
+              {% endif %}
               <li class="nav-item">
                   <a class="nav-link" href="#howToPlayModal" data-bs-toggle="modal" data-target="#howToPlayModal">How To Play</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/Game">Game</a>
+                <a class="nav-link" href="/Game">Play Game</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="/logout">Logout</a>
@@ -54,6 +56,7 @@
           </div>
           <div class="nav-text" style="float:right; margin-right: 3%; font-weight: 400; color: white;">
             {{user.username}}
+            <p>Score: <a id="score">0</a></p>
         </div>
         </nav>
 
@@ -111,7 +114,7 @@
           </div>
         </div> 
 
-
+        {% if user.is_superuser or user.is_staff %}
         <!--Settings Modal-->
         <div class="modal fade" id="settingsModal">
           <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -124,7 +127,7 @@
                   <br>
                   <br>
                   <br>
-                  {% if user.is_superuser or user.is_staff %}
+                  
                   <div class="modal-header">
                     <h3 class="col-12 modal-title text-center">Admin Options</h3>
                   </div>
@@ -136,12 +139,13 @@
                   <br>
                   <br>
                   <a class="w-50 btn btn-lg btn-primary" href="/AddAdmin">Adjust Game Master Accounts</a>
-                  {% endif %}
+                  
                 </div>
             </div>
           </div>
         </div>
-        
+        {% endif %}
+
         <!--How To Play Modal-->
         <div class="modal fade" id="howToPlayModal">
           <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -163,20 +167,50 @@
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content"> 
                 <div class="modal-header">
-                    <h3 class="col-12 modal-title text-center">Score</h3> 
+                  {% if score1 == '-1' %}
+                    <h3 class="col-12 modal-title text-center">Play Game</h3> 
+                  {% else %}
+                    <h3 class="col-12 modal-title text-center">Game Over</h3> 
+                    <br>
+                    <br>
+                  {% endif %}
                 </div>
                 <div class="modal-body text-center">
-                  <p id="score1">0</p>
+                  {% if score1 != '-1' %}
+                    <h3 class="col-12 modal-title text-center">Your score:</h3>
+                    <br>
+                    <br>
+                    <p id="score1"> {{ score1 }} </p>
+                  {% endif %}
+                  {% if score2 != '-1' %}
+                    <h3 class="col-12 modal-title text-center">Your Highscore:</h3>
+                    <br>
+                    <br>
+                    <p id="score2"> {{ score2 }} </p>
+                  {% endif %}
                   <br>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="easy(true)">Start Easy game</button>
+                  <br>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="normal(true)">Start Normal game</button>
+                  <br>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="hard(true)">Start Hard game</button>
+                  <br>
+                  <br>
+                    {% if user.is_superuser or user.is_staff %}
+                        <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="rapid_debug(true)">Start Testing game</button>
+                    {% endif %}
                   <br>
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="game()">Play</button>
-                </div>
+                </div> -->
             </div>
           </div>
         </div> 
-
+        
         <!--Difficulty Modal-->
         <div class="modal fade" id="difficultyModal">
           <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -185,17 +219,17 @@
                     <h3 class="col-12 modal-title text-center">Difficulty</h3> 
                 </div>
                 <div class="modal-body text-center">
-                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="easy()">Easy</button>
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="easy(false)">Easy</button>
                   <br>
                   <br>
-                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="normal()">Normal</button>
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="normal(false)">Normal</button>
                   <br>
                   <br>
-                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="hard()">Hard</button>
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="hard(false)">Hard</button>
                   <br>
                   <br>
                     {% if user.is_superuser or user.is_staff %}
-                        <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="rapid_debug()">Testing</button>
+                        <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="rapid_debug(false)">Testing</button>
                     {% endif %}
                   <br>
                   <br>
@@ -248,6 +282,8 @@
                             score += 1;
                           }
                           visteted.push(taskLocations[i])
+                          map.removeLayer(markers[i]);
+                          document.getElementById("score").innerHTML = score;
                         }
                       }
                     }
@@ -326,10 +362,6 @@
                   console.log(score);
                   document.getElementById("SubmitScore").value = score;
                   document.forms['SubmitScoreForm'].submit()
-                  document.getElementById("score1").innerHTML = score;
-                  $("#gameModal").modal('show')
-                  //play agian
-                  //game();
                   return
                 }
 
@@ -340,6 +372,7 @@
                 var score;
                 var taskLocations = [];
                 var visteted = [];
+                var markers = [];
                 //Centers map on Exeter University
                 var map = L.map('map').setView([50.736391, -3.533999], 16);;
                 //How far away from the player the snail will spawn
@@ -354,9 +387,9 @@
                 });
 
                 function game(){
-                  if (gameover){
+                  $(document).ready(function(){
                     $("#gameModal").modal('hide')
-                  }
+                  })
                   gameover = false;
                   if (playerLocation){
                     map.removeLayer(playerLocation);
@@ -386,7 +419,9 @@
                       let description = [taskLocation.description];
       
                       //Add mask to the map
-                      var marker = L.marker([coordinates[0],coordinates[1]]).addTo(map);
+                      var marker = L.marker([coordinates[0],coordinates[1]])
+                      markers.push(marker)
+                      marker.addTo(map);
                       taskLocations.push(coordinates);
                       map.addLayer(marker);
       
@@ -409,26 +444,42 @@
                     return
                   }
                 }
+                
                 if (!gameover) {
-                  game();
-                  //$("#gameModal").modal('show')
-                }
-                function easy(){
-                  $("#difficultyModal").modal('hide')
-                  speed = 0.00005;
-                }
-                function normal(){
-                  $("#difficultyModal").modal('hide')
-                  speed = 0.00009;
-                }
-                function hard(){
-                  $("#difficultyModal").modal('hide')
-                  speed = 0.0002;
+                  //game();
+                  $(document).ready(function(){
+                    $("#gameModal").modal('show')
+                  })
                 }
 
-                function rapid_debug(){
+                function easy(gamePlay){
+                  $("#difficultyModal").modal('hide')
+                  speed = 0.00005;
+                  if (gamePlay){
+                    game();
+                  }
+                }
+                function normal(gamePlay){
+                  $("#difficultyModal").modal('hide')
+                  speed = 0.00009;
+                  if (gamePlay){
+                    game();
+                  }
+                }
+                function hard(gamePlay){
+                  $("#difficultyModal").modal('hide')
+                  speed = 0.0002;
+                  if (gamePlay){
+                    game();
+                  }
+                }
+
+                function rapid_debug(gamePlay){
                   $("#difficultyModal").modal('hide')
                   speed = 0.001;
+                  if (gamePlay){
+                    game();
+                  }
                 }
                 </script>
               </div>
