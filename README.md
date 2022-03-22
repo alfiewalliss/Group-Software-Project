@@ -46,6 +46,42 @@ python manage.py runserver
 The UI and design documents for the client will be found in the repository below. 
 /product docs/designs/ UI Document.jpeg
 
+## SOFTWARE REQUIREMENTS
+
+The software requirements for this project can be found in a text file (requirements.txt) in the following trajectory > Group-Software-Project/technical docs/requirements.txt
+
+## HOW TO RUN TESTS
+
+To run the tests do the following:
+
+> Enter the trajectory Group-Software-Project/technical docs/ 
+> run the command 'python manage.py test tests' to run all the tests
+
+
+## ADMIN ACCOUNT
+
+The default admin account can be access by logging in with the username 'admin' and the password 'gcd22'.
+
+Admin permissions can be passed to different accounts by; firstly logging into an admin account, opening the settings tab, clicking 'Adjust Game Master Accounts' and typing in the username of the account to be made into an admin account.
+
+Admin accounts have access to the following:
+
+> Ability to change difficulties mid-game:
+This can be accessed through the 'Difficulty' option in the settings tab.
+By clicking on a difficulty you are able to change the speed of the snail mid-game. This can be used for testing the effectiveness of new task locations.
+
+> Ability to edit tasks: 
+This can be accessed through the 'Edit Tasks' option in the settings tab.
+To add a new task click on a campus location on the map. Upon doing so, the longitude and latitude fields will be autofilled. Then all that is left to do is provide a name for the selected location and clicking submit. To remove  task location, click on one of the points on the map (blue icons), the location will be autofilled in the textbox. Then click submit to remove the selected task.
+
+> Ability to access the github:
+This can be accessed through the 'Link To Github' option in the settings tab.
+Once clicked, the github repository will be opened in a new tab.
+
+> Ability to adjust permissions for accounts:
+This can be accessed through the 'Adjust Game Master Accounts' option in the settings tab.
+To use this feature click on a username in the table. Once clicked the name will be autofilled into the bar beneath 'Change User Permissions'. Upon clicking 'submit' the select account will either, gain superuser permissions or lost them.
+
 
 ## DESCRIPTION OF GAME
 
@@ -53,14 +89,14 @@ The Snail Game is a test of both tactics and endurance, yet the aim of the game 
 
 On the map, there are three types of icons: player icons (showing yours and other player's locations), task icons (showing the locations of your specific tasks) and the snail icon (showing the location of the snail). This game uses your real-life location so, to complete a task, you must head to one of the task locations shown on the map.
 
-If you're finding the game particularly easy/hard, you can change the difficulty by clicking on the 'Settings' tab in the task bar; but, know that the harder you set the difficulty, the more points you get for completing a task! So your challenge is to collect as many points as you can before being caught by the dreaded snail! Do you have what it takes to defeat him? 🐌
+When you start a new game, you will be greeted with the option to select what difficulty you would like to play the game at. There are 3 different abilities to pick between; easy, normal and hard. But, know that the harder you set the difficulty, the more points you get for completing a task! So your challenge is to collect as many points as you can before being caught by the dreaded snail! Do you have what it takes to defeat him? 🐌
 
 ## INSTALLATION GUIDE
 
 There is no installation required! The game is hosted on a google cloud server. To access the game 
 please visit the following link ===[GAME LINK]====
 
-To run the game locally, move into the 'techical doc' trajectory and run 'python manage.py runserver' in terminal (make sure all migrations are done first).
+To run the game locally, move into the 'techical doc' trajectory and first run 'pip install -r requirements.txt' to install all the software requirements then run 'python manage.py runserver' in terminal (make sure all migrations are done first via 'python manage.py makemigrations' 'python manage.py migrate').
 
 ## KNOWN BUGS AND FIXES
 
@@ -85,7 +121,7 @@ difficulty. The difficulty options avaliable are easy / medium / hard.
 Terms and Conditions
 Welcome to The Snail Game!
 
-These terms and conditions outline the rules and regulations for the use of The Snail Game's Website, located at http://127.0.0.1:8000/.
+These terms and conditions outline the rules and regulations for the use of The Snail Game's Website.
 
 By accessing this website we assume you accept these terms and conditions. Do not continue to use The Snail Game if you do not agree to take all of the terms and conditions stated on this page.
 
