@@ -37,9 +37,9 @@ def Game(request):
                 plb = pleaderboard.objects.get(profile=request.user.profile)
                 if plb != None:
                     old_score = plb.score
-                    print(old_score)
+                    #print(old_score)
                     new_score = request.POST.get('SubmitScore')
-                    print(new_score)
+                    #print(new_score)
                     if int(old_score) < int(new_score):
                         plb.score = new_score
                         plb.save()
