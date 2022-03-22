@@ -112,9 +112,8 @@ Yes! Those with access to game master account permissions are able to manipulate
 By logging into an account with game master permissions and visiting the settings tabs, click on
 'Adjust Game Master Accounts'. From here, add the name of the account you would like to give/take permissions from.
 
--> Q. Is there a way to make the game harder?
-By manuvering over to the difficulty section in the settings tab, you are able to increase the
-difficulty. The difficulty options avaliable are easy / medium / hard.
+-> Q. How can I score more highly?
+By visiting more locations and playing on a higher difficulty you will be able to increase your score dramatically!
 
 ## COPYRIGHT AND LICIENSING INFORMATION
 
