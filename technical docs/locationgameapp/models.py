@@ -2,6 +2,7 @@
 
 from distutils.command.upload import upload
 from email.policy import default
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
@@ -30,13 +31,15 @@ class profile(models.Model):
 
     def save(self, *args, **kwargs):
         super().save()
-
-        img = Image.open(self.image.path)
+        imageName = self.image.name
+        mediaRoot = settings.MEDIA_ROOT 
+        newPath = mediaRoot + "\\" + imageName
+        img = Image.open(newPath)
 
         if img.height > 300 or img.width > 300:
             outputSize = (300,300)
             img.thumbnail(outputSize)
-            img.save(self.image.path)
+            img.save(newPath)
 
 class pleaderboard(models.Model):
     profile = models.OneToOneField(profile, on_delete=models.CASCADE)
