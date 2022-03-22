@@ -67,6 +67,7 @@
             <div class="modal-content"> 
                 <div class="modal-header">
                     <h3 class="col-12 modal-title text-center">Leaderboard</h3> 
+                    <button style="margin-left: -10%;" type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="close2('#leaderboardModal')">✕</button>
                 </div>
                 <div class="modal-body text-center">
                     <table class="table" style="text-align: center; cursor: pointer;" id="tableID">
@@ -97,6 +98,7 @@
             <div class="modal-content"> 
                 <div class="modal-header">
                     <h3 class="col-12 modal-title text-center">Profile</h3> 
+                    <button style="margin-left: -10%;" type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="close2('#profileModal')">✕</button>
                 </div>
                 <div class="modal-body text-center">
                   <div class="content-section">
@@ -121,6 +123,7 @@
             <div class="modal-content"> 
                 <div class="modal-header">
                     <h3 class="col-12 modal-title text-center">Settings</h3> 
+                    <button style="margin-left: -10%;" type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="close2('#settingsModal')">✕</button>
                 </div>
                 <div class="modal-body text-center">
                   <button class="w-50 btn btn-lg btn-primary" href="#difficultyModal" data-bs-toggle="modal" data-target="#difficultyModal">Difficulty</button>
@@ -152,6 +155,7 @@
             <div class="modal-content"> 
                 <div class="modal-header">
                     <h3 class="col-12 modal-title text-center">How To Play</h3> 
+                    <button style="margin-left: -10%;" type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="close2('#howToPlayModal')">✕</button>
                 </div>
                 <div class="modal-body text-center">
                   <p>The Snail Game is a test of both tactics and endurance, yet the aim of the game is relatively simple: complete as many tasks as possible and don't get caught by the snail!</p>
@@ -174,6 +178,7 @@
                     <br>
                     <br>
                   {% endif %}
+                  <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="close2('#gameModal')" style="margin-left: -10%;">✕</button>
                 </div>
                 <div class="modal-body text-center">
                   {% if score1 != '-1' %}
@@ -217,6 +222,7 @@
             <div class="modal-content"> 
                 <div class="modal-header">
                     <h3 class="col-12 modal-title text-center">Difficulty</h3> 
+                    <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="close2('#difficultyModal')" style="margin-left: -10%;">✕</button>
                 </div>
                 <div class="modal-body text-center">
                   <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" onclick="easy(false)">Easy</button>
@@ -445,6 +451,10 @@
                     return
                   }
                 }
+
+                function close2(modal1){
+                  $(modal1).modal('hide')
+                }
                 
                 if (!gameover) {
                   //game();
@@ -482,6 +492,7 @@
                     game();
                   }
                 }
+
                 </script>
               </div>
               
