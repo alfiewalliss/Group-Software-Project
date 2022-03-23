@@ -315,7 +315,7 @@
                         gameOver();
                         return
                       }
-  
+                      //getting the straight line distance
                       euclDist = Math.sqrt((latDist)**2 + (longDist)**2);
                       //working out how far to move in long and lat
                       ratio = euclDist/speed;
@@ -330,7 +330,7 @@
                       } else {
                         snailCoords[1] = snailCoords[1]+(longDist/ratio);
                       }
-  
+                      //add the new snail location to the map
                       snailLocation = L.marker([snailCoords[0],snailCoords[1]],{icon: snailIcon}).addTo(map);
                       snailLocation.bindPopup("Snail");
                     } else {
@@ -339,6 +339,7 @@
                         //getting a random angle
                         angle = Math.random()*100;
                         angle = angle * Math.PI / 180;
+                        //using pythagoras to determine a random start location for the snail
                         if (Math.random() < 0.5){
                           distance1 = distance * Math.cos(angle)
                         } else {
@@ -349,6 +350,7 @@
                         } else {
                           distance2 = -(distance * Math.sin(angle))
                         }
+                        //adding the first snail location to the map
                         snailCoords = [playerCoords[0]+distance1,playerCoords[1]+distance2];
                         snailLocation = L.marker([snailCoords[0],snailCoords[1]],{icon: snailIcon}).addTo(map);
                         snailLocation.bindPopup("Snail");
@@ -365,7 +367,8 @@
                 function gameOver(){
                   //ends the game for the user, called when the snail reaches the player
                   gameover = true;
-                  console.log(score);
+                  //console.log(score);
+                  //submitting the score to the django python files
                   document.getElementById("SubmitScore").value = score;
                   document.forms['SubmitScoreForm'].submit()
                   return
@@ -425,7 +428,7 @@
                       let coordinates = [taskLocation.latitude, taskLocation.longitude]; 
                       let description = [taskLocation.description];
       
-                      //Add mask to the map
+                      //Add maker to the map
                       var marker = L.marker([coordinates[0],coordinates[1]])
                       markers.push(marker)
                       marker.addTo(map);
@@ -451,7 +454,7 @@
                     return
                   }
                 }
-
+                //closing the modal from the x
                 function close2(modal1){
                   $(modal1).modal('hide')
                 }
@@ -462,7 +465,7 @@
                     $("#gameModal").modal('show')
                   })
                 }
-
+                //setting the speeds based on difficulty
                 function easy(gamePlay){
                   $("#difficultyModal").modal('hide')
                   speed = 0.00005;
@@ -492,11 +495,11 @@
                     game();
                   }
                 }
-
                 </script>
               </div>
               
             </div>
+        <!-- the form for the score, hidden to the user -->
         <form method="POST" name="SubmitScoreForm" id="SubmitScoreForm"> {% csrf_token %}
             <input class="form-submit-score"  name="SubmitScore" id="SubmitScore" hidden>
         </form>

@@ -43,6 +43,7 @@
                     <br>
                     <h2 class="form-floating">Login</h2>
                     <br>
+                    <!--using the crispy forms from python-->
                         <form method="POST">
                             {% csrf_token %}
                             {{ form|crispy }}
@@ -50,6 +51,7 @@
                             <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
                         </form>
                         <small class="test-muted">
+                          <!-- a way for the user to signup or recover their password -->
                           <a class="ml-2" href="{% url 'password_reset' %}">Forgotten your password? Reset it here</a>
                           <br>
                           <a class="ml-2" href="{% url 'register' %}">Don't have an account? Sign Up</a>
