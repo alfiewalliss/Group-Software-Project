@@ -1,0 +1,2 @@
+gcloud builds submit --config cloudmigrate.yaml \                   
+    --substitutions _INSTANCE_NAME=mysnail,_REGION=europe-west2

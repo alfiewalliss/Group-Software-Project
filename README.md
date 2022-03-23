@@ -93,9 +93,6 @@ When you start a new game, you will be greeted with the option to select what di
 
 ## INSTALLATION GUIDE
 
-There is no installation required! The game is hosted on a google cloud server. To access the game 
-please visit the following link ===[GAME LINK]====
-
 To run the game locally, move into the 'techical doc' trajectory and first run 'pip install -r requirements.txt' to install all the software requirements then run 'python manage.py runserver' in terminal (make sure all migrations are done first via 'python manage.py makemigrations' 'python manage.py migrate').
 
 ## KNOWN BUGS AND FIXES
