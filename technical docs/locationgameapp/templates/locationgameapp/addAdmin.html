@@ -173,6 +173,7 @@
     </body>
 
     <script>
+        //returns the text in the table when the user clicks on the table
         var table = document.getElementById("tableID");
         if (table != null) {
             for (var i = 0; i < table.rows.length; i++) {
@@ -181,11 +182,12 @@
                 }
             }
         }
-
+        //changing the user status on the page
         function tableText(tableRow){
           document.getElementById("AddSuperuser").setAttribute("value", tableRow.cells[0].innerHTML);
         }
 
+        //for closing a modal
         function close2(modal1){
           $(modal1).modal('hide')
         }
