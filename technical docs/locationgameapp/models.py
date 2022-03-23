@@ -33,7 +33,7 @@ class profile(models.Model):
         super().save()
         imageName = self.image.name
         mediaRoot = settings.MEDIA_ROOT 
-        newPath = mediaRoot + "\\" + imageName
+        newPath = mediaRoot + "/" + imageName
         img = Image.open(newPath)
 
         if img.height > 300 or img.width > 300:
